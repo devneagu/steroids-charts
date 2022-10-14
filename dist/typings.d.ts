@@ -1313,9 +1313,10 @@ export interface IChartApi {
 	 */
 	takeScreenshot(): HTMLCanvasElement;
 	/**
-	 *  Set crosshair visibility
+	 * Set crosshair visibility
 	 */
 	setCrossHairXY(x: number, y: number, visible: boolean): void;
+	clearCrossHair(): void;
 }
 /** Interface to be implemented by the object in order to be used as a price formatter */
 export interface IPriceFormatter {

@@ -258,8 +258,9 @@ export interface IChartApi {
 	takeScreenshot(): HTMLCanvasElement;
 
 	/**
-	 *  Set crosshair visibility
+	 * Set crosshair visibility
 	 */
-	setCrossHairXY(x: number,y: number,visible: boolean): void;
+	setCrossHairXY(x: number, y: number, visible: boolean): void;
 
+	clearCrossHair(): void;
 }

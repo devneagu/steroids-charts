@@ -1,6 +1,6 @@
 /*!
  * @license
- * TradingView Lightweight Charts v4.0.0-dev+202210141759
+ * TradingView Lightweight Charts v4.0.0-dev+202210142034
  * Copyright (c) 2022 TradingView, Inc.
  * Licensed under Apache License 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
@@ -7326,6 +7326,7 @@ class ChartModel {
         }
         price = this._private__magnet._internal_align(price, index, pane);
         this._private__crosshair._internal_setPosition(index, price, pane);
+        /* eslint-disable @typescript-eslint/no-unsafe-call */
         this._internal_cursorUpdate();
         if (fire) {
             this._private__crosshairMoved._internal_fire(this._private__crosshair._internal_appliedIndex(), { x, y });
@@ -9430,12 +9431,19 @@ class PaneWidget {
         if (visible) {
             const x = xx;
             const y = yy;
+            // if (!mobileTouch) {
             this._private__setCrosshairPositionNoFire(x, y);
+            // }
         }
         else {
             this._private__state._internal_model()._internal_setHoveredSource(null);
+            // if (!isMobile) {
             this._private__clearCrosshairPosition();
+            // }
         }
+    }
+    _internal_clearCrossHair() {
+        this._private__clearCrosshairPosition();
     }
     _private__setCrosshairPositionNoFire(x, y) {
         this._private__model()._internal_setAndSaveCurrentPositionFire(this._private__correctXCoord(x), this._private__correctYCoord(y), false, ensureNotNull(this._private__state));
@@ -11888,7 +11896,12 @@ class ChartApi {
         return this._private__addSeriesImpl('Line', lineStyleDefaults, options);
     }
     setCrossHairXY(x, y, visible) {
-        this._private__chartWidget._internal_paneWidgets()[0]._internal_setCrossHair(x, y, visible);
+        var _a, _b;
+        /* eslint-disable @typescript-eslint/no-unsafe-call */
+        (_b = (_a = this._private__chartWidget) === null || _a === void 0 ? void 0 : _a._internal_paneWidgets()[0]) === null || _b === void 0 ? void 0 : _b._internal_setCrossHair(x, y, visible);
+    }
+    clearCrossHair() {
+        this._private__chartWidget._internal_paneWidgets()[0]._internal_clearCrossHair();
     }
     removeSeries(seriesApi) {
         const series = ensureDefined(this._private__seriesMap.get(seriesApi));
@@ -11994,7 +12007,7 @@ function createChart(container, options) {
  * Returns the current version as a string. For example `'3.3.0'`.
  */
 function version() {
-    return "4.0.0-dev+202210141759";
+    return "4.0.0-dev+202210142034";
 }
 
 export { ColorType, CrosshairMode, LastPriceAnimationMode, LineStyle, LineType, MismatchDirection, PriceLineSource, PriceScaleMode, TickMarkType, TrackingModeExitMode, createChart, isBusinessDay, isUTCTimestamp, version };
