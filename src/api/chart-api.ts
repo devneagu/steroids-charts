@@ -189,7 +189,9 @@ export class ChartApi implements IChartApi, DataUpdatesConsumer<SeriesType> {
 	public addLineSeries(options?: LineSeriesPartialOptions): ISeriesApi<'Line'> {
 		return this._addSeriesImpl('Line', lineStyleDefaults, options);
 	}
-
+	public setCrossHairXY(x: number,y: number,visible: boolean): void{
+		this._chartWidget.paneWidgets()[0].setCrossHair(x,y,visible);
+	}
 	public removeSeries(seriesApi: SeriesApi<SeriesType>): void {
 		const series = ensureDefined(this._seriesMap.get(seriesApi));
 
